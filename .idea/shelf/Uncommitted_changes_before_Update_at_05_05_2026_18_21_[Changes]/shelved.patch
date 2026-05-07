@@ -1,0 +1,20 @@
+Index: src/com/group/app/collections/CollectionTest.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.group.app.collections;\r\n\r\n/**\r\n * Класс для ручного тестирования кастомной коллекции.\r\n * Это выполнение части задания №7 (Тесты).\r\n */\r\npublic class CollectionTest {\r\n    public static void main(String[] args) {\r\n        // Здесь мы вызываем ваш конструктор!\r\n        // После этой строки предупреждение в MyCustomList исчезнет.\r\n        MyCustomList<Integer> testList = new MyCustomList<>();\r\n\r\n        System.out.println(\"--- Запуск теста коллекции ---\");\r\n\r\n        // Проверка добавления и размера\r\n        testList.add(10);\r\n        testList.add(20);\r\n        testList.add(30);\r\n\r\n        if (testList.size() == 3) {\r\n            System.out.println(\"✅ Тест размера: Пройден\");\r\n        } else {\r\n            System.out.println(\"❌ Тест размера: Ошибка\");\r\n        }\r\n\r\n        // Проверка получения значения\r\n        if (testList.get(1) == 20) {\r\n            System.out.println(\"✅ Тест получения элемента: Пройден\");\r\n        } else {\r\n            System.out.println(\"❌ Тест получения элемента: Ошибка\");\r\n        }\r\n\r\n        // Проверка метода set\r\n        testList.set(1, 50);\r\n        if (testList.get(1) == 50) {\r\n            System.out.println(\"✅ Тест метода set: Пройден\");\r\n        }\r\n\r\n        System.out.println(\"--- Конец теста ---\");\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/com/group/app/collections/CollectionTest.java b/src/com/group/app/collections/CollectionTest.java
+--- a/src/com/group/app/collections/CollectionTest.java	(revision 51beb43152683b73a21d01f2cc77aab4e24443ea)
++++ b/src/com/group/app/collections/CollectionTest.java	(date 1777994423500)
+@@ -6,8 +6,7 @@
+  */
+ public class CollectionTest {
+     public static void main(String[] args) {
+-        // Здесь мы вызываем ваш конструктор!
+-        // После этой строки предупреждение в MyCustomList исчезнет.
++
+         MyCustomList<Integer> testList = new MyCustomList<>();
+ 
+         System.out.println("--- Запуск теста коллекции ---");
