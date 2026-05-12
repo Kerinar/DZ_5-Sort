@@ -1,4 +1,4 @@
-package com.group.app.collections;
+package src.com.group.app.collections;
 
 /**
  * Кастомная реализация динамического массива (аналог ArrayList).
