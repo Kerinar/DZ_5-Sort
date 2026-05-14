@@ -22,12 +22,14 @@ public class Main {
         System.out.println("\nПо GPA (убыв): " + Student.BY_GPA.compare(s1, s2));
         System.out.println("По группе:     " + Student.BY_GROUP.compare(s1, s3));
 
-        List<Student> students = new ArrayList<>();
-        students.add(s1);
-        students.add(s2);
-        students.add(s3);
-
         Scanner scanner = new Scanner(System.in);
+
+        List<Student> students = InputHandler.fillCollection(scanner);
+        if (students.isEmpty()) {
+            System.out.println("Коллекция пуста, завершение работы.");
+            return;
+        }
+
         boolean running = true;
 
         while (running) {
@@ -36,7 +38,14 @@ public class Main {
             System.out.println("2 - Quick Sort");
             System.out.println("3 - Selection Sort");
             System.out.println("0 - Выход");
-            int algo = scanner.nextInt();
+
+            int algo = 0;
+            try {
+                algo = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Неверный ввод, попробуйте снова.");
+                continue;
+            }
 
             if (algo == 0) {
                 running = false;
@@ -52,24 +61,52 @@ public class Main {
             System.out.println("1 - GPA (по убыванию)");
             System.out.println("2 - Группа (по возрастанию)");
             System.out.println("3 - Номер зачётки (по возрастанию)");
-            int field = scanner.nextInt();
+
+            int field = 0;
+            try {
+                field = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Неверный ввод, попробуйте снова.");
+                continue;
+            }
 
             Comparator<Student> comparator;
+            String fieldName;
             switch (field) {
-                case 1:  comparator = Student.BY_GPA;           break;
-                case 2:  comparator = Student.BY_GROUP;         break;
-                case 3:  comparator = Student.BY_RECORD_BOOK;   break;
+                case 1:
+                    comparator = Student.BY_GPA;
+                    fieldName = "GPA (убыв.)";
+                    break;
+                case 2:
+                    comparator = Student.BY_GROUP;
+                    fieldName = "Группа";
+                    break;
+                case 3:
+                    comparator = Student.BY_RECORD_BOOK;
+                    fieldName = "Номер зачётки";
+                    break;
                 default:
                     System.out.println("Неверный выбор поля");
                     continue;
             }
 
             SortingStrategy strategy;
+            String algoName;
             switch (algo) {
-                case 1:  strategy = new BubbleSort();    break;
-                case 2:  strategy = new QuickSort();     break;
-                case 3:  strategy = new SelectionSort(); break;
-                default:  continue;
+                case 1:
+                    strategy = new BubbleSort();
+                    algoName = "Bubble Sort";
+                    break;
+                case 2:
+                    strategy = new QuickSort();
+                    algoName = "Quick Sort";
+                    break;
+                case 3:
+                    strategy = new SelectionSort();
+                    algoName = "Selection Sort";
+                    break;
+                default:
+                    continue;
             }
 
             strategy.sort(students, comparator);
@@ -77,6 +114,13 @@ public class Main {
             System.out.println("\nОтсортированный список:");
             for (Student s : students) {
                 System.out.println(s);
+            }
+
+            System.out.print("\nСохранить результат в файл? (1 - да, 2 - нет): ");
+            String saveChoice = scanner.nextLine().trim();
+            if ("1".equals(saveChoice)) {
+                String comment = algoName + " по полю " + fieldName;
+                FileWriterUtil.appendToFile("sorted_students.txt", students, comment);
             }
         }
     }
